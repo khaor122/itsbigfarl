@@ -1,0 +1,59 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String?  // nullable to allow OAuth in future
+  role      String   @default("user") // 'admin' or 'user'
+  createdAt DateTime @default(now())
+  resetToken        String?  @unique
+  resetTokenExpiry  DateTime?
+}
+
+
+enum Role {
+  ADMIN
+  USER
+}
+
+
+model Submission {
+  id         String   @id @default(cuid())
+  name       String
+  reference  String
+  username   String
+  email      String
+  phone      String
+  package    String
+  emailStatus String?
+  createdAt  DateTime @default(now())
+
+  orders     Order[]  // 👈 Add this line back for the relation to work
+}
+
+
+
+
+model Setting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Order {
+  id           String     @id @default(cuid())
+  status       String     @default("pending")
+  createdAt    DateTime   @default(now())
+  submission   Submission @relation(fields: [submissionId], references: [id])
+  submissionId String
+}

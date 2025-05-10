@@ -1,0 +1,282 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "MatrixCode";
+  src: url("/fonts/matrix-code.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+@font-face {
+  font-family: 'FeastOfFleshBB';
+  src: url('/fonts/FEASFBRG.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  font-family: "MatrixCode", monospace;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 142 72% 29%;
+
+    --card: 0 0% 0%;
+    --card-foreground: 142 72% 29%;
+
+    --popover: 0 0% 0%;
+    --popover-foreground: 142 72% 29%;
+
+    --primary: 142 72% 29%;
+    --primary-foreground: 0 0% 0%;
+
+    --secondary: 60 54% 70%;
+    --secondary-foreground: 0 0% 0%;
+
+    --muted: 142 20% 10%;
+    --muted-foreground: 142 40% 40%;
+
+    --accent: 142 20% 10%;
+    --accent-foreground: 142 72% 29%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 142 72% 29%;
+    --input: 142 72% 29%;
+    --ring: 142 72% 29%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+
+/* Custome Css */
+
+body {
+  margin: 0;
+  background: #000;
+  color: #4ADE80;
+  font-family: 'Press Start 2P', monospace;
+  overflow: hidden;
+}
+
+/* intro screen */
+#intro {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeOut 6s forwards;
+}
+
+.merge-animation {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+}
+
+.char {
+  font-size: 2rem;
+  color: #4ADE80;
+  opacity: 0;
+  transform: translateX(calc((var(--i) - 6) * 100px));
+  animation: merge 1.5s ease-out forwards;
+  animation-delay: calc(0.1s * var(--i));
+}
+
+@keyframes merge {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeOut {
+
+  0%,
+  85% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+  }
+}
+
+/* Header/Footer */
+#site-header,
+#site-footer {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  background: black;
+  padding: 1rem 2rem;
+  border: solid 3px;
+  border-color: #4ADE80;
+  border-radius: 12px;
+  color: #4ADE80;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+}
+
+/* Add horizontal gap between Instagram and Threads buttons only */
+#site-footer .social-icons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+
+/* Header/Footer Animations */
+#site-header {
+  top: 50%;
+  animation: slideUp 1s 3s forwards;
+}
+
+#site-footer {
+  bottom: 50%;
+  animation: slideDown 1s 3s forwards;
+}
+
+@keyframes slideUp {
+  to {
+    top: 2rem;
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  to {
+    bottom: 2rem;
+    opacity: 1;
+  }
+}
+
+.logo,
+.contact,
+.icon,
+.policy-btn {
+  color: #4ADE80;
+  background: transparent;
+  border: none;
+  font-family: 'Press Start 2P', monospace;
+  cursor: pointer;
+}
+
+.policy-btn:hover,
+.icon:hover {
+  text-decoration: underline;
+}
+
+
+.main-content {
+  width: 448px !important;
+}
+
+.main-content .footer-container {
+
+  width: 448px;
+  justify-content: space-between;
+
+}
+
+.main-content .header-container {
+  width: 448px;
+  justify-content: space-between;
+}
+
+
+.font-brutal {
+  font-family: 'FeastOfFleshBB', 'sans-serif' ;
+  font-stretch: expanded;
+  letter-spacing: 3px;
+}
+
+
+/* for countdown */
+@keyframes ping-slow {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-ping-slow {
+  animation: ping-slow 1s ease-in-out;
+}
+
+
+
+.tv-turn-off-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  animation: tvOff 2s ease-out forwards;
+  z-index: 9999;
+}
+@keyframes tvOff {
+  0% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scaleY(0.05);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+}
+
+/* .tv-shutdown-dot {
+  width: 100vw;
+  height: 100vh;
+  background: #00ff00; 
+  border-radius: 50%;
+  animation: shutdown 1.2s forwards ease-in;
+} */

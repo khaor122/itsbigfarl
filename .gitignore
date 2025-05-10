@@ -1,0 +1,80 @@
+# =====================
+# 📦 Node.js
+# =====================
+node_modules/
+pnpm-lock.yaml
+
+# =====================
+# 🚀 Next.js
+# =====================
+.next/
+out/
+dist/
+.vercel/
+*.local
+
+# Build output
+build/
+
+# Static exported builds
+out/
+
+# Next.js cache
+.next/cache/
+
+# =====================
+# 🔥 Prisma
+# =====================
+prisma/lib/generated/
+prisma/dev.db
+prisma/dev.db-journal
+
+# =====================
+# 🛡 Environment Variables
+# =====================
+.env
+.env.local
+.env.development
+.env.production
+.env.staging
+
+# =====================
+# 🧹 OS / IDE
+# =====================
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# JetBrains IDE (WebStorm, PhpStorm, etc)
+.idea/
+*.iml
+
+# VSCode
+.vscode/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =====================
+# 🎥 Large Media Files
+# =====================
+*.mp4
+*.tiff
+*.avi
+*.flv
+*.mov
+*.wmv
+
+# =====================
+# 🛠 Temporary Files
+# =====================
+*.swp
+*.swo
+*.tmp
+*.temp
