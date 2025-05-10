@@ -7,7 +7,7 @@ import Footer from '@/components/Footer';
 import Script from 'next/script';
 
 const RetroIntro = dynamic(() => import('@/components/RetroIntro'), { ssr: false });
-import Countdown from '@/components/CountDown';
+import Countdown from '@/components/Countdown';
 import PongGame from '@/components/PongGame';
 import TVShutdown from '@/components/TVShutdown';
 
