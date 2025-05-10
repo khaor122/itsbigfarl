@@ -23,9 +23,9 @@ import { faSquareInstagram, faSquareThreads } from '@fortawesome/free-brands-svg
 // import SquarePaymentForm from "@/components/SquarePaymentForm";
 
 // Dynamic import for client-only component
-const SquarePaymentForm = dynamic(() => import('@/components/SquarePaymentForm'), {
-  ssr: false,
-});
+// const SquarePaymentForm = dynamic(() => import('@/components/SquarePaymentForm'), {
+//   ssr: false,
+// });
 
 const characterImages = [
   { src: "/images/bigfarl1.jpg", alt: "Step 1", width: 400, height: 400 },
