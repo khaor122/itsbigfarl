@@ -22,7 +22,7 @@ export default function CountdownAnimation({
       }, 1000)
       return () => clearTimeout(timer)
     }
-  }, [index])
+  }, [index]) 
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black z-50">
