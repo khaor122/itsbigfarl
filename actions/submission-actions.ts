@@ -1,5 +1,5 @@
 // actions/submission-actions.ts
-import { prisma } from 'd:/Bigfarl/bigfarl/lib/prisma';
+import { prisma } from "@/lib/prisma"
 
 
 export async function getSubmissions() {
