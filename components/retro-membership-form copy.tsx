@@ -13,7 +13,7 @@ import dynamic from "next/dynamic"
 const PongGame = dynamic(() => import("./PongGame"), { ssr: false })
 import { submitFormData } from "@/actions/form-actions"
 import { toast } from "@/components/ui/use-toast"
-import CountdownAnimation from "@/components/CountDown"
+import CountdownAnimation from "@/components/Countdown"
 //import TVShutdownAnimation from "@/components/TVShutdownAnimation"
 //import PriceOptions from "@/components/price-options"
 
