@@ -224,10 +224,12 @@ body {
   text-decoration: underline;
 }
 
-
-.main-content {
-  width: 490px !important;
+@media (min-width: 768px) {
+  .main-content {
+    width: 490px !important;
+  }
 }
+
 
 .main-content .footer-container {
 
@@ -364,7 +366,7 @@ body {
 
 @media (max-width: 767px) {
   .main-content {
-    max-height: 75vh; 
+    max-height: 75vh;
   }
 }
 
