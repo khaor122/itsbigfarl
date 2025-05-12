@@ -208,6 +208,8 @@ export default function RetroMembershipForm() {
   };
 
 
+  const [selectedPackage, setSelectedPackage] = useState("");
+
 
   const renderFormField = () => {
     switch (currentStep) {
@@ -314,8 +316,10 @@ export default function RetroMembershipForm() {
                   <div className="p-4 space-y-2">
                     <button
                       onClick={() => {
-                        handlePackageSelect("Consultation");
+                        // handlePackageSelect("Consultation");
                         redirectToCheckout("Consultation", 100);
+                        setSelectedPackage('Consultation');
+                        // alert(selectedPackage)
                       }}
                       className="block w-full text-left border border-green-400 p-2 hover:bg-green-800"
                     >
@@ -326,7 +330,7 @@ export default function RetroMembershipForm() {
                         handlePackageSelect("Feature");
                         redirectToCheckout("Feature", 1000);
                       }}
-                      className="block w-full text-left border border-green-400 p-2 hover:bg-green-800"
+                      className={"block w-full text-left border border-green-400 p-2 hover:bg-green-800 " + (selectedPackage == 'Consultation' ? 'visible' : 'invisible')}
                     >
                       $1000 for Feature ($100 discount)
                     </button>
