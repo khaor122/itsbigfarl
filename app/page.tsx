@@ -112,7 +112,7 @@ export default function Home() {
             {!countdownDone ? <>
               <Countdown start={3} onComplete={() => setCountdownDone(true)} />
             </> : <>
-              <div className="main-content w-full">
+              <div className="main-content max-w-3xl mx-auto ">
                 <Header />
                 <RetroMembershipForm />
                 {/* <PongGame /> */}

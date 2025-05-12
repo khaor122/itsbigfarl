@@ -66,7 +66,7 @@ export default function RetroMembershipForm() {
   const [showGame, setShowGame] = useState(false)
   const [phoneError, setPhoneError] = useState('')
   const [openOption, setOpenOption] = useState<null | 'A' | 'B'>(null);
-   
+
 
 
 
@@ -119,7 +119,7 @@ export default function RetroMembershipForm() {
   const handlePackageSelect = (pkg: string) => {
     setFormData((prev) => ({ ...prev, package: pkg }))
   }
-  
+
 
 
   const handleLetsStart = () => {
@@ -160,7 +160,7 @@ export default function RetroMembershipForm() {
     if (currentStep === 1 && !formData.reference) return;
     if (currentStep === 2 && !formData.username) return;
     if (currentStep === 3 && !formData.email) return;
-  
+
     // ✅ Phone number required at step 5
     if (currentStep === 4) {
       if (!formData.phone.trim()) {
@@ -169,11 +169,11 @@ export default function RetroMembershipForm() {
       } else {
         setPhoneError('');
       }
-  
+
       setShowLetsStart(true);
       return;
     }
-  
+
     if (currentStep < phrases.length - 1) {
       setCurrentStep((prev) => prev + 1);
       setTypingComplete(false);
@@ -181,7 +181,7 @@ export default function RetroMembershipForm() {
       try {
         setIsSubmitting(true);
         const result = await submitFormData(formData);
-  
+
         if (result.success) {
           toast({
             title: "Success!",
@@ -206,7 +206,7 @@ export default function RetroMembershipForm() {
       }
     }
   };
-  
+
 
 
   const renderFormField = () => {
@@ -226,7 +226,7 @@ export default function RetroMembershipForm() {
         const handlePackageSelect = (selectedPackage: string) => {
           setFormData((prev) => ({ ...prev, package: selectedPackage }))
         }
-        
+
       case 1:
         return (
           <div className="flex gap-2 mt-6">
@@ -239,7 +239,7 @@ export default function RetroMembershipForm() {
               <FontAwesomeIcon icon={faSquareInstagram} className="mr-2" />
               Instagram
             </Button>
-        
+
             <Button
               type="button"
               variant={formData.reference === "threads" ? "default" : "outline"}
@@ -251,7 +251,7 @@ export default function RetroMembershipForm() {
             </Button>
           </div>
         );
-        
+
       case 2:
         return (
           <Input
@@ -295,90 +295,90 @@ export default function RetroMembershipForm() {
             )}
           </div>
         );
-        
+
       case 5:
         return (
-  <div className="mt-6 text-green-400 text-sm">
-    <p className="mb-2 text-center">Choose your package below to proceed to payment:</p>
+          <div className="mt-6 text-green-400 text-sm">
+            <p className="mb-2 text-center">Choose your package below to proceed to payment:</p>
 
-    <div className="border border-green-400 rounded p-4 space-y-4 bg-black">
-      {/* Option A */}
-      <div className="border border-green-500 rounded-md">
-        <div
-          className="cursor-pointer px-4 py-2 bg-green-900 hover:bg-green-700 font-bold"
-          onClick={() => setOpenOption(openOption === 'A' ? null : 'A')}
-        >
-          Option A
-        </div>
-        {openOption === 'A' && (
-          <div className="p-4 space-y-2">
-            <button
-              onClick={() => {
-                handlePackageSelect("Consultation");
-                redirectToCheckout("Consultation", 100);
-              }}
-              className="block w-full text-left border border-green-400 p-2 hover:bg-green-800"
-            >
-              $100 for Consultation
-            </button>
-            <button
-              onClick={() => {
-                handlePackageSelect("Feature");
-                redirectToCheckout("Feature", 1000);
-              }}
-              className="block w-full text-left border border-green-400 p-2 hover:bg-green-800"
-            >
-              $1000 for Feature ($100 discount)
-            </button>
+            <div className="border border-green-400 rounded p-4 space-y-4 bg-black">
+              {/* Option A */}
+              <div className="border border-green-500 rounded-md">
+                <div
+                  className="cursor-pointer px-4 py-2 bg-green-900 hover:bg-green-700 font-bold"
+                  onClick={() => setOpenOption(openOption === 'A' ? null : 'A')}
+                >
+                  Option A
+                </div>
+                {openOption === 'A' && (
+                  <div className="p-4 space-y-2">
+                    <button
+                      onClick={() => {
+                        handlePackageSelect("Consultation");
+                        redirectToCheckout("Consultation", 100);
+                      }}
+                      className="block w-full text-left border border-green-400 p-2 hover:bg-green-800"
+                    >
+                      $100 for Consultation
+                    </button>
+                    <button
+                      onClick={() => {
+                        handlePackageSelect("Feature");
+                        redirectToCheckout("Feature", 1000);
+                      }}
+                      className="block w-full text-left border border-green-400 p-2 hover:bg-green-800"
+                    >
+                      $1000 for Feature ($100 discount)
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* Option B */}
+              <div className="border border-green-500 rounded-md">
+                <div
+                  className="cursor-pointer px-4 py-2 bg-green-900 hover:bg-green-700 font-bold"
+                  onClick={() => setOpenOption(openOption === 'B' ? null : 'B')}
+                >
+                  Option B
+                </div>
+                {openOption === 'B' && (
+                  <div className="p-4 space-y-2">
+                    <button
+                      onClick={() => {
+                        handlePackageSelect("Rookie");
+                        redirectToCheckout("Rookie", 2000);
+                      }}
+                      className="block w-full text-left border border-green-400 p-2 hover:bg-green-800"
+                    >
+                      $2000 Rookie Media Production
+                    </button>
+                    <button
+                      onClick={() => {
+                        handlePackageSelect("Pro");
+                        redirectToCheckout("Pro", 20000);
+                      }}
+                      className="block w-full text-left border border-green-400 p-2 hover:bg-green-800"
+                    >
+                      $20000 Pro Media Production
+                    </button>
+                    <button
+                      onClick={() => {
+                        handlePackageSelect("Superstar");
+                        redirectToCheckout("Superstar", 70000);
+                      }}
+                      className="block w-full text-left border border-green-400 p-2 hover:bg-green-800"
+                    >
+                      $70000 Superstar Media Production
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
-        )}
-      </div>
+        );
 
-      {/* Option B */}
-      <div className="border border-green-500 rounded-md">
-        <div
-          className="cursor-pointer px-4 py-2 bg-green-900 hover:bg-green-700 font-bold"
-          onClick={() => setOpenOption(openOption === 'B' ? null : 'B')}
-        >
-          Option B
-        </div>
-        {openOption === 'B' && (
-          <div className="p-4 space-y-2">
-            <button
-              onClick={() => {
-                handlePackageSelect("Rookie");
-                redirectToCheckout("Rookie", 2000);
-              }}
-              className="block w-full text-left border border-green-400 p-2 hover:bg-green-800"
-            >
-              $2000 Rookie Media Production
-            </button>
-            <button
-              onClick={() => {
-                handlePackageSelect("Pro");
-                redirectToCheckout("Pro", 20000);
-              }}
-              className="block w-full text-left border border-green-400 p-2 hover:bg-green-800"
-            >
-              $20000 Pro Media Production
-            </button>
-            <button
-              onClick={() => {
-                handlePackageSelect("Superstar");
-                redirectToCheckout("Superstar", 70000);
-              }}
-              className="block w-full text-left border border-green-400 p-2 hover:bg-green-800"
-            >
-              $70000 Superstar Media Production
-            </button>
-          </div>
-        )}
-      </div>
-    </div>
-  </div>
-);
 
-        
 
       default:
         return null
@@ -425,8 +425,9 @@ export default function RetroMembershipForm() {
 
 
   return (
-    <div className="flex flex-col items-center justify-center w-full min-h-screen bg-black p-4">
-      <div className="border-4 border-green-400 rounded-lg p-6 w-full max-w-md bg-black relative overflow-hidden">
+    <div className="flex flex-col items-center justify-center w-full  bg-black p-4">
+
+      <div className=" rounded-lg p-6 w-full max-w-md bg-black relative overflow-hidden">
         {/* 🟩 Show only PongGame when showGame is true */}
         {showGame ? (
           <PongGame
@@ -443,33 +444,63 @@ export default function RetroMembershipForm() {
           </div>
         ) : (
           <>
+
             {/* 🟢 Normal flow content */}
             <div className="absolute top-2 right-2 text-green-400 text-xs font-mono">
               LEVEL {currentStep + 1}/{phrases.length}
             </div>
+            {/* <div className="main-action-area">
+              <div className="flex justify-center mb-6 mt-4">
+                <div className="relative w-48 h-48 border-4 border-green-400 bg-green-200 rounded-lg overflow-hidden">
+                  <Image
+                    src={currentImage.src}
+                    alt={currentImage.alt}
+                    width={currentImage.width}
+                    height={currentImage.height}
+                    priority
+                    className="object-contain"
+                  />
+                </div>
+              </div>
 
-            <div className="flex justify-center mb-6 mt-4">
-              <div className="relative w-48 h-48 border-4 border-green-400 bg-green-200 rounded-lg overflow-hidden">
-                <Image
-                  src={currentImage.src}
-                  alt={currentImage.alt}
-                  width={currentImage.width}
-                  height={currentImage.height}
-                  priority
-                  className="object-contain"
-                />
+              <div className="border-2 border-green-400 bg-black p-4 rounded-lg min-h-[100px] mb-6">
+                <div className="font-mono text-green-400">
+                  <TypewriterEffect text={phrases[currentStep]} speed={40} onComplete={() => setTypingComplete(true)} />
+                  <span className={cn("ml-1", showCursor ? "opacity-100" : "opacity-0")}>_</span>
+                </div>
+              </div>
+
+
+              {typingComplete && renderFormField()}
+            </div> */}
+
+            <div className="main-action-area">
+              <div className="slider-wrapper">
+                <div key={currentStep} className="slider-content fade-slide-in">
+                  <div className="flex justify-center mb-6 mt-4">
+                    <div className="relative w-48 h-48 border-4 border-green-400 bg-green-200 rounded-lg overflow-hidden">
+                      <Image
+                        src={currentImage.src}
+                        alt={currentImage.alt}
+                        width={currentImage.width}
+                        height={currentImage.height}
+                        priority
+                        className="object-contain"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="border-2 border-green-400 bg-black p-4 rounded-lg min-h-[100px] mb-6">
+                    <div className="font-mono text-green-400">
+                      <TypewriterEffect text={phrases[currentStep]} speed={40} onComplete={() => setTypingComplete(true)} />
+                      <span className={cn("ml-1", showCursor ? "opacity-100" : "opacity-0")}>_</span>
+                    </div>
+                  </div>
+
+                  {typingComplete && renderFormField()}
+                </div>
               </div>
             </div>
-
-            <div className="border-2 border-green-400 bg-black p-4 rounded-lg min-h-[100px] mb-6">
-              <div className="font-mono text-green-400">
-                <TypewriterEffect text={phrases[currentStep]} speed={40} onComplete={() => setTypingComplete(true)} />
-                <span className={cn("ml-1", showCursor ? "opacity-100" : "opacity-0")}>_</span>
-              </div>
-            </div>
-
-            {typingComplete && renderFormField()}
-
             <div className="flex justify-end mt-6 space-x-4">
               {typingComplete && !showLetsStart && (
                 <Button
@@ -490,9 +521,11 @@ export default function RetroMembershipForm() {
                 </Button>
               )}
             </div>
+
           </>
         )}
       </div>
+
     </div>
   )
 

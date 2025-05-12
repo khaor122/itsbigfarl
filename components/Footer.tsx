@@ -6,7 +6,7 @@ import { faSquareInstagram, faSquareThreads } from '@fortawesome/free-brands-svg
 
 export default function Footer() {
   return (
-    <footer id="site-footer" className="footer-container">
+    <footer id="site-footer" className="footer-container w-full bg-black text-green-400">
       <div className="social-icons">
         <a
           href="https://www.instagram.com/itsbigfarl/"
