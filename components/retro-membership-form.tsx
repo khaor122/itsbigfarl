@@ -19,6 +19,7 @@ import CountdownAnimation from "@/components/Countdown"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquareInstagram, faSquareThreads } from '@fortawesome/free-brands-svg-icons';
+import StripePayButton from '@/components/StripePayButton';
 
 // import SquarePaymentForm from "@/components/SquarePaymentForm";
 
@@ -43,12 +44,12 @@ const phrases = [
   "Enter your username",
   "Would you like to enter into a chance to win free merch? Add your email",
   "What's your phone number?",
-  "Let's get started",
+  "Let's get play",
 ]
 
 
 export default function RetroMembershipForm() {
-  const [currentStep, setCurrentStep] = useState(0)
+  const [currentStep, setCurrentStep] = useState(5)
   const [formData, setFormData] = useState({
     name: "",
     reference: "",
@@ -151,6 +152,7 @@ export default function RetroMembershipForm() {
     setCurrentStep(5)
     setTypingComplete(false)
   }
+
 
 
 
@@ -301,7 +303,8 @@ export default function RetroMembershipForm() {
       case 5:
         return (
           <div className="mt-6 text-green-400 text-sm">
-            <p className="mb-2 text-center">Choose your package below to proceed to payment:</p>
+            <b className="mb-2 text-center text-green-800 ">Choose your package below to proceed to payment:</b>
+            <br/>
 
             <div className="border border-green-400 rounded p-4 space-y-4 bg-black">
               {/* Option A */}
@@ -316,21 +319,21 @@ export default function RetroMembershipForm() {
                   <div className="p-4 space-y-2">
                     <button
                       onClick={() => {
-                        // handlePackageSelect("Consultation");
-                        redirectToCheckout("Consultation", 100);
-                        setSelectedPackage('Consultation');
-                        // alert(selectedPackage)
+                        setSelectedPackage('consultation');
                       }}
                       className="block w-full text-left border border-green-400 p-2 hover:bg-green-800"
                     >
                       $100 for Consultation
                     </button>
                     <button
-                      onClick={() => {
-                        handlePackageSelect("Feature");
-                        redirectToCheckout("Feature", 1000);
-                      }}
-                      className={"block w-full text-left border border-green-400 p-2 hover:bg-green-800 " + (selectedPackage == 'Consultation' ? 'visible' : 'invisible')}
+                      onClick={() => setSelectedPackage('feature')}
+                      className={
+                        (selectedPackage === 'consultation' || selectedPackage === 'feature'
+                          ? "block"
+                          : "hidden") +
+                        " w-full text-left border border-green-400 p-2 hover:bg-green-800 " +
+                        (selectedPackage === 'feature' ? " bg-green-700 text-white" : "")
+                      }
                     >
                       $1000 for Feature ($100 discount)
                     </button>
@@ -350,8 +353,9 @@ export default function RetroMembershipForm() {
                   <div className="p-4 space-y-2">
                     <button
                       onClick={() => {
-                        handlePackageSelect("Rookie");
-                        redirectToCheckout("Rookie", 2000);
+                        // handlePackageSelect("Rookie");
+                        // redirectToCheckout("Rookie", 2000);
+                        setSelectedPackage('rookie');
                       }}
                       className="block w-full text-left border border-green-400 p-2 hover:bg-green-800"
                     >
@@ -359,8 +363,9 @@ export default function RetroMembershipForm() {
                     </button>
                     <button
                       onClick={() => {
-                        handlePackageSelect("Pro");
-                        redirectToCheckout("Pro", 20000);
+                        // handlePackageSelect("Pro");
+                        // redirectToCheckout("Pro", 20000);
+                        setSelectedPackage('pro');
                       }}
                       className="block w-full text-left border border-green-400 p-2 hover:bg-green-800"
                     >
@@ -368,8 +373,9 @@ export default function RetroMembershipForm() {
                     </button>
                     <button
                       onClick={() => {
-                        handlePackageSelect("Superstar");
-                        redirectToCheckout("Superstar", 70000);
+                        // handlePackageSelect("Superstar");
+                        // redirectToCheckout("Superstar", 70000);
+                        setSelectedPackage('superstar');
                       }}
                       className="block w-full text-left border border-green-400 p-2 hover:bg-green-800"
                     >
@@ -379,6 +385,11 @@ export default function RetroMembershipForm() {
                 )}
               </div>
             </div>
+            <br />
+            <br />
+            <StripePayButton packageType={selectedPackage} />
+            {/* <StripePayButton packageType="pro" /> */}
+
           </div>
         );
 
@@ -510,7 +521,9 @@ export default function RetroMembershipForm() {
                 <Button
                   onClick={handleNext}
                   disabled={isSubmitting}
-                  className="bg-green-700 hover:bg-green-600 text-black font-mono border-2 border-green-400 disabled:opacity-50"
+                  className={"bg-green-700 hover:bg-green-600 text-black font-mono border-2 border-green-400 disabled:opacity-50 " + (currentStep > 4 ? 'hidden ' : 'block')}
+                  currentStep={currentStep}
+
                 >
                   {isSubmitting ? "SAVING..." : currentStep === phrases.length - 1 ? "SUBMIT" : "NEXT"}
                 </Button>
@@ -521,7 +534,7 @@ export default function RetroMembershipForm() {
                   onClick={handleLetsStart}
                   className="bg-green-600 hover:bg-green-500 text-black font-mono border-2 border-green-400"
                 >
-                  Let&apos;s Start
+                  Let's Play!!
                 </Button>
               )}
             </div>
