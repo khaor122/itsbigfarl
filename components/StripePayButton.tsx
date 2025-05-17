@@ -6,7 +6,7 @@ export default function StripePayButton({ packageType }: { packageType: string }
     const [loading, setLoading] = useState(false);
 
     const handleClick = async () => {
-        alert(packageType)
+        // alert(packageType)
         setLoading(true);
         const res = await fetch('/api/stripe/checkout', {
             method: 'POST',

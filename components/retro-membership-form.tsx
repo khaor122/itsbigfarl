@@ -49,7 +49,7 @@ const phrases = [
 
 
 export default function RetroMembershipForm() {
-  const [currentStep, setCurrentStep] = useState(0)
+  const [currentStep, setCurrentStep] = useState(5)
   const [formData, setFormData] = useState({
     name: "",
     reference: "",
