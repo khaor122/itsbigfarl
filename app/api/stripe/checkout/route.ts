@@ -4,6 +4,7 @@ import Stripe from 'stripe';
 export async function POST(req: Request) {
   // ✅ Do NOT move this outside the function — keeps env safe at build time
   const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+  console.log("LOADED STRIPE KEY:", process.env.STRIPE_SECRET_KEY);
 
   if (!stripeSecretKey) {
     return NextResponse.json({ error: "Stripe secret key is missing" }, { status: 500 });
