@@ -189,35 +189,38 @@ export default function RetroMembershipForm() {
       setCurrentStep((prev) => prev + 1);
       setTypingComplete(false);
     } else {
-      try {
-        setIsSubmitting(true);
-        const result = await submitFormData(formData);
-
-        if (result.success) {
-          toast({
-            title: "Success!",
-            description: "Your membership application has been submitted.",
-          });
-          router.push(`/success?id=${result.id}`);
-        } else {
-          toast({
-            title: "Error",
-            description: "There was a problem submitting your application.",
-            variant: "destructive",
-          });
-        }
-      } catch (error) {
-        toast({
-          title: "Error",
-          description: "Something went wrong. Please try again.",
-          variant: "destructive",
-        });
-      } finally {
-        setIsSubmitting(false);
-      }
+      dataStore();
     }
   };
 
+  const dataStore = async () => {
+    try {
+      setIsSubmitting(true);
+      const result = await submitFormData(formData);
+
+      if (result.success) {
+        toast({
+          title: "Success!",
+          description: "Your membership application has been submitted.",
+        });
+        router.push(`/success?id=${result.id}`);
+      } else {
+        toast({
+          title: "Error",
+          description: "There was a problem submitting your application.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
 
   const [selectedPackage, setSelectedPackage] = useState("");
 
@@ -403,7 +406,9 @@ export default function RetroMembershipForm() {
             </div>
             <br />
             <br />
-            <StripePayButton packageType={selectedPackage} />
+            <StripePayButton onClick={() => {
+              dataStore();
+            }} packageType={selectedPackage} />
             {/* <StripePayButton packageType="pro" /> */}
 
           </div>
