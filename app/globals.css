@@ -373,7 +373,7 @@ body {
 @media (max-width: 767px) {
   .main-content {
     max-height: 80vh;
-    margin-top: 80px;
+    /* margin-top: 80px; */
   }
 }
 
