@@ -16,7 +16,7 @@ export async function sendSubmissionEmail({
 }) {
   try {
     const { data, error } = await resend.emails.send({
-      from: 'aajrumman@gmail.com',
+      from: 'onboarding@resend.dev',
       to,
       subject: '✅ Form Submitted Successfully!',
       html: `<p>Hi <strong>${username}</strong>,</p>

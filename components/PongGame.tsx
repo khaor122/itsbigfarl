@@ -8,8 +8,11 @@ interface PongGameProps {
 
 const PongGame: React.FC<PongGameProps> = ({ onGameEnd }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+
   const [score, setScore] = useState(0)
   const [showPopup, setShowPopup] = useState(false)
+  const [canvasSize, setCanvasSize] = useState({ width: 400, height: 300 })
 
   const paddleWidth = 80
   const paddleHeight = 10
@@ -20,7 +23,7 @@ const PongGame: React.FC<PongGameProps> = ({ onGameEnd }) => {
   const ball = useRef({
     x: 200,
     y: 100,
-    dx: 1.2, // slower speed
+    dx: 1.2,
     dy: 1.2,
   })
 
@@ -28,8 +31,8 @@ const PongGame: React.FC<PongGameProps> = ({ onGameEnd }) => {
 
   const resetBall = () => {
     ball.current = {
-      x: 200,
-      y: 100,
+      x: canvasSize.width / 2,
+      y: canvasSize.height / 3,
       dx: 1.2,
       dy: 1.2,
     }
@@ -46,7 +49,12 @@ const PongGame: React.FC<PongGameProps> = ({ onGameEnd }) => {
 
       // Draw paddle
       ctx.fillStyle = "#4ADE80"
-      ctx.fillRect(paddle.current.x, canvas.height - paddleHeight - 10, paddleWidth, paddleHeight)
+      ctx.fillRect(
+        paddle.current.x,
+        canvas.height - paddleHeight - 10,
+        paddleWidth,
+        paddleHeight
+      )
 
       // Draw ball
       ctx.beginPath()
@@ -65,7 +73,10 @@ const PongGame: React.FC<PongGameProps> = ({ onGameEnd }) => {
       ball.current.y += ball.current.dy
 
       // Wall collision
-      if (ball.current.x + ballRadius > canvas.width || ball.current.x - ballRadius < 0) {
+      if (
+        ball.current.x + ballRadius > canvas.width ||
+        ball.current.x - ballRadius < 0
+      ) {
         ball.current.dx *= -1
       }
 
@@ -109,16 +120,18 @@ const PongGame: React.FC<PongGameProps> = ({ onGameEnd }) => {
     return () => {
       if (animationFrame.current) cancelAnimationFrame(animationFrame.current)
     }
-  }, [score])
+  }, [score, canvasSize])
 
-  // Touch and Mouse control
   useEffect(() => {
     const movePaddle = (x: number) => {
       const canvas = canvasRef.current
       if (!canvas) return
       const rect = canvas.getBoundingClientRect()
       const paddleX = x - rect.left - paddleWidth / 2
-      paddle.current.x = Math.max(0, Math.min(canvas.width - paddleWidth, paddleX))
+      paddle.current.x = Math.max(
+        0,
+        Math.min(canvas.width - paddleWidth, paddleX)
+      )
     }
 
     const handleTouchMove = (e: TouchEvent) => {
@@ -138,18 +151,35 @@ const PongGame: React.FC<PongGameProps> = ({ onGameEnd }) => {
     }
   }, [])
 
+  useEffect(() => {
+    const handleResize = () => {
+      const container = containerRef.current
+      if (!container) return
+      const width = Math.min(container.offsetWidth, 400)
+      const height = (width * 3) / 4
+      setCanvasSize({ width, height })
+    }
+
+    handleResize()
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
+
   const handlePopupClose = () => {
     setShowPopup(false)
     onGameEnd()
   }
 
   return (
-    <div className="w-full flex flex-col items-center justify-center">
+    <div
+      ref={containerRef}
+      className="w-full flex flex-col items-center justify-center px-2 relative"
+    >
       <canvas
         ref={canvasRef}
-        width={400}
-        height={300}
-        className="border-2 border-green-400 bg-black"
+        width={canvasSize.width}
+        height={canvasSize.height}
+        className="border-2 border-green-400 bg-black rounded"
       />
       {showPopup && (
         <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-black/90 text-green-400 font-mono z-50">

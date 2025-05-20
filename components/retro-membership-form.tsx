@@ -107,6 +107,15 @@ export default function RetroMembershipForm() {
   }, [])
 
 
+
+  // handlePackage('consultation');
+
+
+  const handlePackage = (packageData) => {
+    setFormData((prev) => ({ ...prev, ['package']: packageData }))
+
+  }
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
@@ -304,7 +313,7 @@ export default function RetroMembershipForm() {
         return (
           <div className="mt-6 text-green-400 text-sm">
             <b className="mb-2 text-center text-green-800 ">Choose your package below to proceed to payment:</b>
-            <br/>
+            <br />
 
             <div className="border border-green-400 rounded p-4 space-y-4 bg-black">
               {/* Option A */}
@@ -320,13 +329,17 @@ export default function RetroMembershipForm() {
                     <button
                       onClick={() => {
                         setSelectedPackage('consultation');
+                        handlePackage('consultation');
                       }}
                       className="block w-full text-left border border-green-400 p-2 hover:bg-green-800"
                     >
                       $100 for Consultation
                     </button>
                     <button
-                      onClick={() => setSelectedPackage('feature')}
+                      onClick={() => {
+                        setSelectedPackage('feature');
+                        handlePackage('feature');
+                      }}
                       className={
                         (selectedPackage === 'consultation' || selectedPackage === 'feature'
                           ? "block"
@@ -356,6 +369,7 @@ export default function RetroMembershipForm() {
                         // handlePackageSelect("Rookie");
                         // redirectToCheckout("Rookie", 2000);
                         setSelectedPackage('rookie');
+                        handlePackage('rookie');
                       }}
                       className="block w-full text-left border border-green-400 p-2 hover:bg-green-800"
                     >
@@ -366,6 +380,7 @@ export default function RetroMembershipForm() {
                         // handlePackageSelect("Pro");
                         // redirectToCheckout("Pro", 20000);
                         setSelectedPackage('pro');
+                        handlePackage('pro');
                       }}
                       className="block w-full text-left border border-green-400 p-2 hover:bg-green-800"
                     >
@@ -376,6 +391,7 @@ export default function RetroMembershipForm() {
                         // handlePackageSelect("Superstar");
                         // redirectToCheckout("Superstar", 70000);
                         setSelectedPackage('superstar');
+                        handlePackage('superstar');
                       }}
                       className="block w-full text-left border border-green-400 p-2 hover:bg-green-800"
                     >
