@@ -351,7 +351,7 @@ export default function RetroMembershipForm() {
                         (selectedPackage === 'feature' ? " bg-green-700 text-white" : "")
                       }
                     >
-                      $1000 for Feature ($100 discount)
+                      $1K for Feature ($100 discount)
                     </button>
                   </div>
                 )}
@@ -376,7 +376,7 @@ export default function RetroMembershipForm() {
                       }}
                       className="block w-full text-left border border-green-400 p-2 hover:bg-green-800"
                     >
-                      $2000 Rookie Media Production
+                      $2K Rookie Media Production
                     </button>
                     <button
                       onClick={() => {
@@ -387,7 +387,7 @@ export default function RetroMembershipForm() {
                       }}
                       className="block w-full text-left border border-green-400 p-2 hover:bg-green-800"
                     >
-                      $20000 Pro Media Production
+                      $20K Pro Media Production
                     </button>
                     <button
                       onClick={() => {
@@ -398,7 +398,7 @@ export default function RetroMembershipForm() {
                       }}
                       className="block w-full text-left border border-green-400 p-2 hover:bg-green-800"
                     >
-                      $70000 Superstar Media Production
+                      $70K Superstar Media Production
                     </button>
                   </div>
                 )}

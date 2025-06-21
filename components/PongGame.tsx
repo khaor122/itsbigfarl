@@ -16,15 +16,15 @@ const PongGame: React.FC<PongGameProps> = ({ onGameEnd }) => {
 
   const paddleWidth = 80
   const paddleHeight = 10
-  const ballRadius = 8
+  const ballRadius = 10
   const maxScore = 3
 
   const paddle = useRef({ x: 160 })
   const ball = useRef({
     x: 200,
     y: 100,
-    dx: 1.2,
-    dy: 1.2,
+    dx: 3,
+    dy: 3,
   })
 
   const animationFrame = useRef<number | null>(null)
@@ -33,8 +33,8 @@ const PongGame: React.FC<PongGameProps> = ({ onGameEnd }) => {
     ball.current = {
       x: canvasSize.width / 2,
       y: canvasSize.height / 3,
-      dx: 1.2,
-      dy: 1.2,
+      dx: 3,
+      dy: 3,
     }
   }
 
