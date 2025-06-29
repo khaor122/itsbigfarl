@@ -29,6 +29,10 @@ const PongGame: React.FC<PongGameProps> = ({ onGameEnd }) => {
 
   const animationFrame = useRef<number | null>(null)
 
+  const paddleHitSound = useRef<HTMLAudioElement | null>(null)
+  const gameOverSound = useRef<HTMLAudioElement | null>(null)
+  const gameLevelUpSound = useRef<HTMLAudioElement | null>(null)
+
   const resetBall = () => {
     ball.current = {
       x: canvasSize.width / 2,
@@ -39,6 +43,14 @@ const PongGame: React.FC<PongGameProps> = ({ onGameEnd }) => {
   }
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      paddleHitSound.current = new Audio("/sounds/paddle-hit.wav")
+      gameOverSound.current = new Audio("/sounds/game-over.wav")
+      gameLevelUpSound.current = new Audio("/sounds/game-level-completed.wav")
+    }
+  }, [])
+
+  useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext("2d")
@@ -47,7 +59,6 @@ const PongGame: React.FC<PongGameProps> = ({ onGameEnd }) => {
     const update = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-      // Draw paddle
       ctx.fillStyle = "#4ADE80"
       ctx.fillRect(
         paddle.current.x,
@@ -56,23 +67,19 @@ const PongGame: React.FC<PongGameProps> = ({ onGameEnd }) => {
         paddleHeight
       )
 
-      // Draw ball
       ctx.beginPath()
       ctx.arc(ball.current.x, ball.current.y, ballRadius, 0, Math.PI * 2)
       ctx.fillStyle = "#C4D38C"
       ctx.fill()
       ctx.closePath()
 
-      // Draw score
-      ctx.font = "16px monospace"
+      ctx.font = "16px 'Press Start 2P', monospace"
       ctx.fillStyle = "#4ADE80"
       ctx.fillText(`Score: ${score}`, 10, 20)
 
-      // Move ball
       ball.current.x += ball.current.dx
       ball.current.y += ball.current.dy
 
-      // Wall collision
       if (
         ball.current.x + ballRadius > canvas.width ||
         ball.current.x - ballRadius < 0
@@ -84,25 +91,26 @@ const PongGame: React.FC<PongGameProps> = ({ onGameEnd }) => {
         ball.current.dy *= -1
       }
 
-      // Paddle collision
       if (
         ball.current.y + ballRadius >= canvas.height - paddleHeight - 10 &&
         ball.current.x >= paddle.current.x &&
         ball.current.x <= paddle.current.x + paddleWidth
       ) {
         ball.current.dy *= -1
+        paddleHitSound.current?.play()
         setScore((prev) => {
           const newScore = prev + 1
           if (newScore >= maxScore) {
             cancelAnimationFrame(animationFrame.current!)
             setShowPopup(true)
+            gameLevelUpSound.current?.play()
           }
           return newScore
         })
       }
 
-      // Missed paddle
       if (ball.current.y + ballRadius > canvas.height) {
+        gameOverSound.current?.play()
         cancelAnimationFrame(animationFrame.current!)
         setTimeout(() => {
           setScore(0)
@@ -128,10 +136,7 @@ const PongGame: React.FC<PongGameProps> = ({ onGameEnd }) => {
       if (!canvas) return
       const rect = canvas.getBoundingClientRect()
       const paddleX = x - rect.left - paddleWidth / 2
-      paddle.current.x = Math.max(
-        0,
-        Math.min(canvas.width - paddleWidth, paddleX)
-      )
+      paddle.current.x = Math.max(0, Math.min(canvas.width - paddleWidth, paddleX))
     }
 
     const handleTouchMove = (e: TouchEvent) => {
@@ -183,8 +188,10 @@ const PongGame: React.FC<PongGameProps> = ({ onGameEnd }) => {
       />
       {showPopup && (
         <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-black/90 text-green-400 font-mono z-50">
-          <div className="text-3xl mb-4">🎉 Great Job! 🎮</div>
-          <p className="mb-6">You scored 3 points and beat the game!</p>
+          <div className="text-3xl mb-4 font-['Press_Start_2P']">🎉 Great Job! 🎮</div>
+          <p className="mb-6 font-['Press_Start_2P']">
+            You scored 3 points and beat the game!<span className="animate-ping ml-2">_</span>
+          </p>
           <button
             onClick={handlePopupClose}
             className="border border-green-400 px-6 py-2 hover:bg-green-800"

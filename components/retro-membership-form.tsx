@@ -528,7 +528,7 @@ export default function RetroMembershipForm() {
 
                   <div className="border-2 border-green-400 bg-black p-4 rounded-lg min-h-[100px] mb-6">
                     <div className="font-mono text-green-400">
-                      <TypewriterEffect text={phrases[currentStep]} speed={40} onComplete={() => setTypingComplete(true)} />
+                      <TypewriterEffect text={phrases[currentStep]} speed={60} playSound={true} onComplete={() => setTypingComplete(true)} />
                       <span className={cn("ml-1", showCursor ? "opacity-100" : "opacity-0")}>_</span>
                     </div>
                   </div>
